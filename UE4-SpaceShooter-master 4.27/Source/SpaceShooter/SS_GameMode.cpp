@@ -6,8 +6,6 @@
 ASS_GameMode::ASS_GameMode()
 {
 	SpawnTimer = 0.0f;
-	//MusicTrack = CreateDefaultSubobject<UAudioComponent>(TEXT("MusicTrack"));
-	//MusicTrack->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 
 	AsteroidSpawnLocation = FVector(1000.0f, 1000.0f, 1000.0f);
 	AsteroidSpawnRotation = FRotator(0.0f, 0.0f,0.0f);
@@ -18,8 +16,9 @@ ASS_GameMode::ASS_GameMode()
 void ASS_GameMode::BeginPlay()
 {
 	Super::BeginPlay();
-	//MusicTrack->Play();
 	bPlayerDead = false;
+
+	//Implementamos nuestros widgets
 
 	if (Score_Widget_Class)
 	{
@@ -33,14 +32,6 @@ void ASS_GameMode::BeginPlay()
 		Health_And_Armor_Widget->AddToViewport();
 	}
 
-	if (Restart_Class)
-	{
-		Restart_Widget = CreateWidget<UUserWidget>(GetWorld(), Restart_Class);
-		Restart_Widget->AddToViewport();
-
-		Restart_Widget->SetVisibility(ESlateVisibility::Hidden);
-	}
-
 	PC_Ref = GetWorld()->GetFirstPlayerController();
 
 
@@ -51,6 +42,8 @@ void ASS_GameMode::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	SpawnTimer = FMath::RandRange(0, 1000);
+
+	//Le damos un spawn a nuestros enemigos y asteroides
 
 	if (Enemy && SpawnTimer > 990)
 	{
@@ -66,17 +59,7 @@ void ASS_GameMode::Tick(float DeltaTime)
 	if (HazardTemplate && SpawnTimer > 995)
 		GetWorld()->SpawnActor(HazardTemplate, &AsteroidSpawnLocation, &AsteroidSpawnRotation, AsteroidSpawnParams);	
 
-	if (bPlayerDead)
-	{
-		Restart_Widget->SetVisibility(ESlateVisibility::Visible);
-		PC_Ref->bShowMouseCursor = true;
-		bPlayerDead = false;
-	}
 }
-
-//void ASS_GameMode::RestartLevel(FName LevelName)
-//{
-//}
 
 TSubclassOf<ASS_Hazard> ASS_GameMode::GetHazardTemplate()
 {

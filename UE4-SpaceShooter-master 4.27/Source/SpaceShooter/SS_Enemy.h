@@ -4,10 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
-//#include "Particles/ParticleSystemComponent.h"
-//#include "Components/AudioComponent.h"
 #include "SS_Pickup.h"
-
 #include "Projectile.h"
 #include "SS_Enemy.generated.h"
 
@@ -25,12 +22,6 @@ public:
 
 	UPROPERTY(EditAnywhere)
 		UCapsuleComponent* CollisionComponent;
-
-	//UPROPERTY(EditAnywhere)
-		//UParticleSystemComponent* Explosion_FX;
-
-	//UPROPERTY(EditAnywhere)
-		//UAudioComponent* ExplosionSound;
 
 	UPROPERTY(EditAnywhere)
 		TSubclassOf<AProjectile> EnemyProjectile_BP;

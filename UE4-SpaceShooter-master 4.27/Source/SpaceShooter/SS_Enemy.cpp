@@ -10,7 +10,7 @@ ASS_Enemy::ASS_Enemy()
 	PrimaryActorTick.bCanEverTick = true;
 
 	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
-	// mesh & collision
+
 	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh"));
 	CollisionComponent = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CollisionComponent"));
 	StaticMesh->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
@@ -22,7 +22,6 @@ void ASS_Enemy::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	// init starting state
 	bHit = bDead = false;
 	TotalTime = TimeSinceLastShot = 0.0f;
 	fDestroyTimer = 1.0f;
@@ -81,11 +80,13 @@ void ASS_Enemy::UpdateFiring(float DeltaTime)
 		Params.Owner = this;
 
 		ThisWorld->SpawnActor(EnemyProjectile_BP, &Current_Location, &Current_Rotation, Params);
-		// resetting
+
 		fBurstDelay = 0.0f;
 		TimeSinceLastShot = 0.0f;		
 	}
 }
+
+//Funcion que nos permite darle ciertos efectos a nuestra nave enemiga cuando esta es golpeada por los limites, un asteroide, el proyectile o el jugador
 
 void ASS_Enemy::OnBeginOverlap(AActor* EnemyActor, AActor* OtherActor)
 {
@@ -98,14 +99,14 @@ void ASS_Enemy::OnBeginOverlap(AActor* EnemyActor, AActor* OtherActor)
 		if (ThisWorld)
 		{
 			bHit = true;
-			// TODO: spawn pickup
+			// spawn pickup
 			if (FMath::RandRange(0, 10) > 7)
 			{
 				FVector CurrentSpawnLocation = this->GetActorLocation();
-				FRotator CurrrntSpawnRotation = this->GetActorRotation();
+				FRotator CurrentSpawnRotation = this->GetActorRotation();
 				FActorSpawnParameters Params = {};
 
-				ThisWorld->SpawnActor(Pickup_Can, &CurrentSpawnLocation, &CurrrntSpawnRotation, Params);
+				ThisWorld->SpawnActor(Pickup_Can, &CurrentSpawnLocation, &CurrentSpawnRotation, Params);
 			}
 		}
 	}

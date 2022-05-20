@@ -4,11 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameMode.h"
-
 #include "SS_Enemy.h"
 #include "SS_Hazard.h"
 #include "Blueprint/UserWidget.h"
-
 #include "SS_GameMode.generated.h"
 
 /**
@@ -19,14 +17,13 @@ class SPACESHOOTER_API ASS_GameMode : public AGameMode
 {
 	GENERATED_BODY()
 
+	//Agarramos nuestros blueprints para poder utilizarlos y crear un spawn
+
 	UPROPERTY(EditAnywhere)
 		TSubclassOf<ASS_Enemy> Enemy;
 
 	UPROPERTY(EditAnywhere)
 		TSubclassOf<ASS_Hazard> HazardTemplate;
-
-	//UPROPERTY(EditAnywhere)
-		//UAudioComponent* MusicTrack;
 
 	ASS_GameMode();
 
@@ -40,9 +37,6 @@ public:
 	bool bPlayerDead;
 	bool bStart;
 
-	//UFUNCTION()
-		//void RestartLevel(FName LevelName);
-
 protected:
 
 	FActorSpawnParameters AsteroidSpawnParams;
@@ -51,7 +45,7 @@ protected:
 
 	UWorld* ThisWorld;
 
-	// TODO: add widgets
+	//Declaramos nuestros widgets
 
 	UPROPERTY(EditAnywhere, Category = "HUD Elements")
 		TSubclassOf<UUserWidget> Score_Widget_Class;
@@ -60,10 +54,6 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "HUD Elements")
 		TSubclassOf<UUserWidget> Health_And_Armor_Class;
 	UUserWidget* Health_And_Armor_Widget;
-
-	UPROPERTY(EditAnywhere, Category = "HUD Elements")
-		TSubclassOf<UUserWidget> Restart_Class;
-	UUserWidget* Restart_Widget;
 
 	APlayerController* PC_Ref;
 };

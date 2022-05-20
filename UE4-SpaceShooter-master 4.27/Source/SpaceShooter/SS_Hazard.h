@@ -6,9 +6,6 @@
 #include "GameFramework/Actor.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/CapsuleComponent.h"
-#include "Components/AudioComponent.h"
-#include "Particles/ParticleSystemComponent.h"
-
 #include "SS_Hazard.generated.h"
 
 UCLASS()
@@ -17,7 +14,7 @@ class SPACESHOOTER_API ASS_Hazard : public AActor
 	GENERATED_BODY()
 	
 public:	
-	// Sets default values for this actor's properties
+	
 	ASS_Hazard();
 
 	UPROPERTY(EditAnywhere)
@@ -25,15 +22,6 @@ public:
 
 	UPROPERTY(EditAnywhere)
 		UCapsuleComponent* CollisionComponent;
-
-	UPROPERTY(EditAnywhere)
-		UAudioComponent* AsteroidExplosionSound;
-
-	UPROPERTY(EditAnywhere)
-		UParticleSystemComponent* AsteroidExplosion_FX;
-
-	UPROPERTY(EditAnywhere)
-		TSubclassOf<ASS_Hazard> ChildSpawn;
 
 	UFUNCTION()
 		void OnBeginOverlap(AActor* AsteroidActor, AActor* OtherActor);
@@ -53,7 +41,6 @@ public:
 	bool bHit;
 	bool bStartDestroyTimer;
 
-	void SpawnChildren(int32 Asteroid_Children);
 	void SetHazardVelocity(FVector NewVelocity);
 
 protected:

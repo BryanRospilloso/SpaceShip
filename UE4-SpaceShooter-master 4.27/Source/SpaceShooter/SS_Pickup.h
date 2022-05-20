@@ -6,8 +6,6 @@
 #include "GameFramework/Actor.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/CapsuleComponent.h"
-
-
 #include "SS_Pickup.generated.h"
 
 UCLASS()
@@ -16,7 +14,7 @@ class SPACESHOOTER_API ASS_Pickup : public AActor
 	GENERATED_BODY()
 	
 public:	
-	// Sets default values for this actor's properties
+	
 	ASS_Pickup();
 
 

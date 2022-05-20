@@ -12,7 +12,7 @@ UCLASS()
 class SPACESHOOTER_API AProjectile : public AActor
 {
 	GENERATED_BODY()
-		Cola<class AProyectil*> ColaProyectiles;
+		//Cola<class AProyectil*> ColaProyectiles;
 	
 public:	
 	// Sets default values for this actor's properties
@@ -20,10 +20,13 @@ public:
 
 	UPROPERTY(EditAnywhere)
 		UStaticMeshComponent * BulletComponent;
+
 	UPROPERTY(EditAnywhere)
 		UCapsuleComponent * CapsuleCollision;
+
 	UPROPERTY(EditAnywhere)
 		float ProjectileSpeed;
+
 	UFUNCTION()
 		void OnBeginOverlap(AActor* ProjectileActor, AActor* OtherActor);
 

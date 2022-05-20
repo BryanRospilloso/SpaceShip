@@ -14,7 +14,6 @@ AProjectile::AProjectile()
 
 	BulletComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PlaneComponent"));
 	CapsuleCollision = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CollisionComponent"));
-
 	BulletComponent->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 	CapsuleCollision->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 
@@ -40,17 +39,18 @@ void AProjectile::Tick(float DeltaTime)
 	
 	UpdateMovement(DeltaTime);
 	if (this->GetActorLocation().X >= 1500)
-		bHit = true; // out of bounds
+		bHit = true; 
 	if (bHit)
 		this->Destroy();
 
 }
 
+//Funcion que nos ayuda a saber si nuestro proyectile choco con algun limite, con otro proyectile, con el enemigo o con el jugador
+
 void AProjectile::OnBeginOverlap(AActor* ProjectileActor, AActor* OtherActor)
 {
 	if (OtherActor)
 	{
-		// finding out who fired this projectile
 		ASS_Player* OwningPlayer = Cast<ASS_Player>(this->GetOwner());
 
 		if (OtherActor->ActorHasTag("Bounds") || (this->ActorHasTag("EnemyProjectile") && OtherActor->ActorHasTag("Player")))
